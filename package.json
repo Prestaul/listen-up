@@ -1,0 +1,29 @@
+{
+  "name": "listen-up",
+  "version": "1.0.0",
+  "description": "Fast, light-weight event emitter with regex event matching support",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./tests"
+  },
+  "keywords": [
+    "event",
+    "emitter",
+    "listener"
+  ],
+  "author": "Matt Dunlap <mpdunlap@gmail.com>",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/prestaul/listen-up/raw/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Prestaul/listen-up.git"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}

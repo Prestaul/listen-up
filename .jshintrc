@@ -1,0 +1,20 @@
+{
+	"node": true,
+	"esnext": true,
+	"undef": true,
+	"eqeqeq": true,
+	"eqnull": false,
+	"newcap": true,
+	"nomen": true,
+	"trailing": true,
+
+	"predef": [
+		"describe",
+		"it",
+		"before",
+		"beforeEach",
+		"after",
+		"afterEach",
+		"helpers"
+	]
+}
