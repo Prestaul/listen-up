@@ -54,6 +54,37 @@ describe('listen-up', function() {
 				assert.isTrue(called);
 			});
 
+			it('should pass the event name as first arg', function() {
+				var instance = getEmitter();
+				instance
+					.on('test', function(e) {
+						assert.strictEqual(e, 'test');
+					})
+					.emit('test');
+			});
+
+			it('should pass an argument', function() {
+				var instance = getEmitter(),
+					arg = {};
+				instance
+					.on('test', function(e, a) {
+						assert.strictEqual(a, arg);
+					})
+					.emit('test', arg);
+			});
+
+			it('should pass multiple arguments', function() {
+				var instance = getEmitter(),
+					arg1 = {}, arg2 = {}, arg3 = {};
+				instance
+					.on('test', function(e, a1, a2, a3) {
+						assert.strictEqual(a1, arg1);
+						assert.strictEqual(a2, arg2);
+						assert.strictEqual(a3, arg3);
+					})
+					.emit('test', arg1, arg2, arg3);
+			});
+
 			it('should not be called for different event', function() {
 				var instance = getEmitter(),
 					called = false;
@@ -298,6 +329,37 @@ describe('listen-up', function() {
 					})
 					.emit('test');
 				assert.isTrue(called);
+			});
+
+			it('should pass the event name as first arg', function() {
+				var instance = getEmitter();
+				instance
+					.once('test', function(e) {
+						assert.strictEqual(e, 'test');
+					})
+					.emit('test');
+			});
+
+			it('should pass an argument', function() {
+				var instance = getEmitter(),
+					arg = {};
+				instance
+					.once('test', function(e, a) {
+						assert.strictEqual(a, arg);
+					})
+					.emit('test', arg);
+			});
+
+			it('should pass multiple arguments', function() {
+				var instance = getEmitter(),
+					arg1 = {}, arg2 = {}, arg3 = {};
+				instance
+					.once('test', function(e, a1, a2, a3) {
+						assert.strictEqual(a1, arg1);
+						assert.strictEqual(a2, arg2);
+						assert.strictEqual(a3, arg3);
+					})
+					.emit('test', arg1, arg2, arg3);
 			});
 
 			it('should not be called for different event', function() {

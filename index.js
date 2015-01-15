@@ -128,10 +128,11 @@ var protoEmitter = {
 
 	emit: function(event /*, ...data */) {
 		var listeners = eventData(this),
-			args = slice.call(arguments, 1),
 			events = Object.keys(listeners),
 			eventListeners, listener,
 			i, iLen, j, jLen;
+
+		event = event.toString();
 
 		// Traverse the listeners and call handlers for matches
 		for(i = 0, iLen = events.length; i < iLen; i++) {
@@ -139,7 +140,7 @@ var protoEmitter = {
 			for(j = 0, jLen = eventListeners.length; j < jLen; j++) {
 				listener = eventListeners[j];
 				if(listener.event.test && listener.event.test(event) || listener.event == event)
-					listener.handler.apply(this, args);
+					listener.handler.apply(this, arguments);
 			}
 		}
 

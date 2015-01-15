@@ -53,16 +53,16 @@ Person.prototype.change = function(name) {
 var jim = new Person('Jim');
 
 // Adding event handlers
-jim.on('change:name', function(name) {
+jim.on('change:name', function(e, name) {
     console.log('"change:name" handler called with:', name);
 });
 
-jim.on(/^change:/, function(name) {
+jim.on(/^change:/, function(e, name) {
     console.log('"change:*" handler called with:', name);
 });
 
 // Use `once` to remove handler after first call
-jim.once(/:name$/, function(name) {
+jim.once(/:name$/, function(e, name) {
     console.log('"*:name" handler called with:', name);
 });
 
