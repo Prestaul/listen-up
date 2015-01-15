@@ -1,8 +1,18 @@
 # listen-up
-A fast and light-weight event emitter. Supports regular expression event subscriptions and group listener removal.
+A fast and lightweight event emitter. Supports regular expression event subscriptions and group listener removal.
 
-Inspired by https://github.com/HenrikJoreteg/wildemitter
+Inspired strongly by https://github.com/HenrikJoreteg/wildemitter (especially the concept of "groups") so thanks to @HenrikJoreteg and @andyet.
 
+- Very lightweight (and fast)
+- Browser and node.js support (browser support with Browserify or similar tool)
+- Standard event emitter functionality (i.e. `on`, `off`, `emit`)
+- Single event handler registration with `once`
+- Handler grouping and bulk removal with `releaseGroup`
+- \*Supports factory and mixin patterns for greater flexibility
+- \*Support for regex event matching
+- \*Consistent arguments passed to handlers regardless of registration method
+
+\*features not in WildEmitter
 
 ## Install
 ```bash
