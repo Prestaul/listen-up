@@ -77,7 +77,7 @@ jim.change('James');
 jim.off('change:name');
 
 // Use groups when adding listeners...
-jim.on('change:name', 'ui-listeners', function() {...})
+jim .on('change:name', 'ui-listeners', function() {...})
     .on('change:age',  'ui-listeners', function() {...})
     .on('sync',        'ui-listeners', function() {...});
 
