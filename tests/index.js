@@ -1,5 +1,6 @@
 var assert = require('chai').assert,
-	emitter = require('../');
+	emitter = require('../'),
+	ORIG_EVENT_DATA_PROPERTY = emitter.EVENT_DATA_PROPERTY;
 
 describe('listen-up', function() {
 	function setupTests(getEmitter) {
@@ -593,7 +594,83 @@ describe('listen-up', function() {
 				});
 			});
 		});
+
+		describe('event data (string keyed)', function() {
+			var instance;
+
+			before(function() {
+				emitter.EVENT_DATA_PROPERTY = 'test-event-key';
+				instance = emitter();
+				instance.on('test', function() {});
+			});
+
+			after(function() {
+				emitter.EVENT_DATA_PROPERTY = ORIG_EVENT_DATA_PROPERTY;
+			});
+
+			it('should exist', function() {
+				assert.property(instance, emitter.EVENT_DATA_PROPERTY);
+			});
+
+			it('should not be enumerable via Object.keys', function() {
+				assert.lengthOf(Object.keys(instance), 0);
+			});
+
+			it('should not be enumerable via for...in', function() {
+				var keys = [];
+				for(var key in instance) assert(key !== emitter.EVENT_DATA_PROPERTY);
+			});
+		});
+
+		if(typeof Symbol !== 'undefined') {
+			describe('event data (symbol keyed)', function() {
+				var instance = emitter();
+				instance.on('test', function() {});
+
+				it('should exist', function() {
+					assert.property(instance, emitter.EVENT_DATA_PROPERTY);
+				});
+
+				it('should not be enumerable via Object.keys', function() {
+					assert.lengthOf(Object.keys(instance), 0);
+				});
+
+				it('should not be enumerable via Object.getOwnPropertyNames', function() {
+					assert.lengthOf(Object.getOwnPropertyNames(instance), 0);
+				});
+
+				it('should not be enumerable via for...in', function() {
+					var keys = [];
+					for(var key in instance) assert(key !== emitter.EVENT_DATA_PROPERTY);
+				});
+			});
+		}
+
+		describe('proto', function() {
+			it('modifies instance methods', function() {
+				var instance = emitter();
+				emitter.proto.describe = function() { return 'Ima mitter!'; };
+				assert.property(instance, 'describe');
+				assert.strictEqual(instance.describe(), 'Ima mitter!');
+				delete emitter.proto.describe;
+			});
+		});
 	}
+
+	it('EVENT_DATA_PROPERTY should be exposed', function() {
+		assert.property(emitter, 'EVENT_DATA_PROPERTY');
+	});
+
+	describe('getListeners', function() {
+		it('should be exposed', function() {
+			assert.property(emitter, 'getListeners');
+			assert.typeOf(emitter.getListeners, 'function');
+		});
+
+		it('should return an object', function() {
+			assert.typeOf(emitter.getListeners({}), 'object');
+		});
+	});
 
 	describe('object', function() {
 		setupTests(function() {

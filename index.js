@@ -42,7 +42,7 @@ var eventEmitter = module.exports = function(host) {
 
 
 // The name we'll use to store event data on the emitter. We expose this so that it can be modified if needed.
-eventEmitter.EVENT_DATA_PROPERTY = '__eventListenerData__';
+eventEmitter.EVENT_DATA_PROPERTY = (typeof Symbol !== 'undefined') ? Symbol('listen-up-event-data') : '__eventListenerData__';
 
 
 // Get event data from an emitter. Lazily create it if it isn't there.
@@ -52,10 +52,11 @@ function eventData(emitter) {
 		enumerable: false
 	})[eventEmitter.EVENT_DATA_PROPERTY];
 }
+eventEmitter.getListeners = eventData;
 
 
 // The event emitter prototype
-var protoEmitter = {
+var protoEmitter = eventEmitter.proto = {
 	on: function(event, group, handler) {
 		var listeners = eventData(this);
 
