@@ -1,6 +1,6 @@
 {
   "name": "listen-up",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Fast, lightweight event emitter with regex event matching support",
   "main": "index.js",
   "scripts": {
